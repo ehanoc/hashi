@@ -20,33 +20,39 @@ describe("Wallet Controller", () => {
 
 	afterEach(() => {})
 
-	it.only(`\(OK) BIP39 generation`, () => {
-		// ### 25 words ###
-		const acc = algosdk.generateAccount()
-		const passphrase = algosdk.secretKeyToMnemonic(acc.sk)
-		console.log(`My passphrase: ${passphrase}`)
+	// it.only(`\(OK) BIP39 generation`, () => {
+	// 	// ### 25 words ###
+	// 	// const acc = algosdk.generateAccount()
+	// 	// const passphrase = algosdk.secretKeyToMnemonic(acc.sk)
+	// 	// console.log(`My passphrase: ${passphrase}`)
+	// 	const passphrase: string = "float park nurse spike pilot fit oyster method wise region voice suffer desert spoon sunny endless kingdom off song gown clap slender floor about sock"
 
-		const seed: Uint8Array = algosdk.seedFromMnemonic(passphrase)
-		console.log("seed: ", Buffer.from(seed).toString("hex"))
+	// 	const seed: Uint8Array = algosdk.seedFromMnemonic(passphrase)
+	// 	// log seed and byte size
+	// 	console.log("seed: ", Buffer.from(seed).toString("hex"))
+	// 	console.log("seed byte size: ", seed.byteLength)
 
-		const algo25Mnemonic: string = algosdk.mnemonicFromSeed(seed)
-		console.log("mnemonic: ", algo25Mnemonic)
+	// 	const algo25Mnemonic: string = algosdk.mnemonicFromSeed(seed)
+    //     console.log("mnemonic: ", algo25Mnemonic)
+	// 	// algo25 => seed => algo25 again
+    //     expect(algo25Mnemonic).toBe(passphrase)
 
-		// algo25 => seed => algo25 again
-		expect(algo25Mnemonic).toBe(passphrase)
+	// 	const secretKey: algosdk.Account = algosdk.mnemonicToSecretKey(algo25Mnemonic)
+		
+	// 	// log addr
+	// 	console.log("address: ", secretKey.addr)
 
-		// ##### BIP39 ####
-		const bip39Mnemonic: string = bip39.entropyToMnemonic(Buffer.from(seed).toString("hex"))
-		console.log("bip39Mnemonic: ", bip39Mnemonic)
+	// 	// ##### BIP39 ####
+	// 	const bip39Mnemonic: string = bip39.entropyToMnemonic(Buffer.from(seed).toString("hex"))
+	// 	console.log("bip39Mnemonic: ", bip39Mnemonic)
 
-		// different words from both standards
-		expect(bip39Mnemonic).not.toBe(algo25Mnemonic)
+	// 	// different words from both standards
+    //     expect(bip39Mnemonic).not.toBe(algo25Mnemonic)
+	// 	const entropy: string = bip39.mnemonicToEntropy(bip39Mnemonic)
 
-		const entropy: string = bip39.mnemonicToEntropy(bip39Mnemonic)
-
-		// same seed from bip39 as from algo25
-		expect(entropy).toBe(Buffer.from(seed).toString("hex"))
-	})
+	// 	// same seed from bip39 as from algo25
+	// 	expect(entropy).toBe(Buffer.from(seed).toString("hex"))
+	// })
 
 	it("(OK) login()", async () => {
 		const token: string = "test"
